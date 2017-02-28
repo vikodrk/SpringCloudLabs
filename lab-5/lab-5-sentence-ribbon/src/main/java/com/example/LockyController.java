@@ -2,7 +2,9 @@ package com.example;
 
 import java.net.URI;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +14,11 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class LockyController {
+	
+	private static final Logger LOGGER = Logger.getLogger(LockyController.class);
 
+	@Value("${info}") String info;
+	
 	@Autowired
 	LoadBalancerClient client;
 
@@ -26,16 +32,24 @@ public class LockyController {
 		builder.append(getWord("LAB-4-NOUN")).append(" ");
 		return builder.toString();
 	}
+	
+	@RequestMapping("/info")
+	public @ResponseBody String showServerInfo(){
+		return info;
+	}
 
 	private String getWord(String service) {
+		LOGGER.info("Load Balancer CLient >>>>>>>>"+client);
 		ServiceInstance serviceInstance = client.choose(service);
+		LOGGER.info("Service Instance>>>>>>"+serviceInstance);
 		if (serviceInstance != null ) {
 			URI uri = serviceInstance.getUri();
+			LOGGER.info("URI>>>>>>>>>>>>>>"+uri.toString());
 			if (uri != null) {
 				return (new RestTemplate()).getForObject(uri, String.class);
 			}
 		}
-		return null;
+		return service;
 	}
 
 }
