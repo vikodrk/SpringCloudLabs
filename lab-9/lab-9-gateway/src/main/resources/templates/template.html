@@ -27,14 +27,14 @@ th:href="@{/css/bootstrap.min.css}" />
 		//	TODO: Alter this prefix when instructed.
 		var prefix = "";
 		// Perform AJAX requests...
-		$.getJSON(prefix + "/subject", null, displaySubject).fail(
+		$.getJSON(prefix + "/lab-4-client", null, displaySubject).fail(
 				displayErrorSubject);
-		$.getJSON(prefix + "/verb", null, displayVerb).fail(displayErrorVerb);
-		$.getJSON(prefix + "/article", null, displayArticle).fail(
+		$.getJSON(prefix + "/lab-4-verb", null, displayVerb).fail(displayErrorVerb);
+		$.getJSON(prefix + "/lab-4-article", null, displayArticle).fail(
 				displayErrorArticle);
-		$.getJSON(prefix + "/adjective", null, displayAdjective).fail(
+		$.getJSON(prefix + "/lab-4-adjective", null, displayAdjective).fail(
 				displayErrorAdjective);
-		$.getJSON(prefix + "/noun", null, displayNoun).fail(displayErrorNoun);
+		$.getJSON(prefix + "/lab-4-noun", null, displayNoun).fail(displayErrorNoun);
 
 		//	Handle Success:
 		function displaySubject(results) {
@@ -42,7 +42,7 @@ th:href="@{/css/bootstrap.min.css}" />
 		}
 
 		function displayVerb(results) {
-			$("#verb").html(results.word);
+			$("#verb").html(results,word);
 		}
 
 		function displayArticle(results) {
