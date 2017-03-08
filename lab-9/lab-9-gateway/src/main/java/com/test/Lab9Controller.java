@@ -1,5 +1,6 @@
 package com.test;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -7,9 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class Lab9Controller {
 
+	@Value("${info}")
+	String info;
+
 	@RequestMapping("/info")
 	public @ResponseBody String infoMethod() {
-		return "Lab 9 Gateway API";
+		return info;
 	}
 
 	@RequestMapping("/")
